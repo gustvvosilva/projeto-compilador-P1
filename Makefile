@@ -1,12 +1,12 @@
 all:
-	gcc ./neander/neander.c -o ./neander/neander
+	gcc ./neander/neander.c -o ./neander/executor
 	gcc ./assembler/assembler.c ./assembler/tokens.c -o ./assembler/assembler
 
 run: all
 	./assembler/assembler
-	./neander/neander ./assembler/memoria.mem
+	./neander/executor ./assembler/programa.bin
 
 clean:
-	rm -f ./neander/neander
+	rm -f ./neander/executor
 	rm -f ./assembler/assembler
-	rm -f ./assembler/memoria.mem
+	rm -f ./assembler/programa.bin

@@ -98,6 +98,16 @@ int main(int argc, char **argv){
         pc++;
     }
 
+    if(ac >= 0x80)
+        neg = true;
+    else
+        neg = false;
+
+    if(ac == 0)
+        zer = true;
+    else
+        zer = false;
+
     printf("\nAC: %02x - PC: %02x\n"
         "flags: N(%c) - Z(%c)\n", ac, pc, neg?'*':' ', zer?'*':' ');
     printf("\nMemória final =========================================");

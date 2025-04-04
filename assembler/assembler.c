@@ -93,7 +93,7 @@ void obter_tokens(FILE *entrada, DATACODIGO *datacodigo, DATAVALOR *datavalor) {
 
 bool criar_memoria() {
 
-    FILE *memoria = fopen("./assembler/memoria.mem", "wb");
+    FILE *memoria = fopen("./assembler/programa.bin", "wb");
     if(memoria == NULL) return false;
 
     __uint32_t memoriaID[] = {0x52444e03};  // Little Endian
@@ -108,7 +108,7 @@ bool criar_memoria() {
 
 bool inserir_tokens(DATACODIGO *datacodigo, DATAVALOR *datavalor) {
 
-    FILE *memoria = fopen("./assembler/memoria.mem", "r+b");
+    FILE *memoria = fopen("./assembler/programa.bin", "r+b");
     if(memoria == NULL) return false;
 
     DATACODIGO *datacodigo_aux = datacodigo->prox;
@@ -166,7 +166,7 @@ bool inserir_tokens(DATACODIGO *datacodigo, DATAVALOR *datavalor) {
 
 void imprimir_memoria() {
 
-    FILE *memoria = fopen("./assembler/memoria.mem", "rb");
+    FILE *memoria = fopen("./assembler/programa.bin", "rb");
     if(memoria == NULL) {
         printf("ERRO ao imprimir memoria.\n");
         return;
