@@ -1,0 +1,6 @@
+PROGRAMA "teste":
+INICIO
+A = 5
+B = 3
+RES = A + B
+FIM
