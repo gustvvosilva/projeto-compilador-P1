@@ -1,8 +1,4 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include <ctype.h>
-#include <string.h>
-#include <assert.h>
+#include "compilador.h"
 
 typedef enum {
     TOKEN_PROGRAMA,
@@ -241,10 +237,10 @@ int main() {
     fread(buffer, 1, 1024, entrada);
     fclose(entrada);
 
-    // for(int i = 0; buffer[i] != 0; i++) {
-    //     printf("%c", buffer[i]);
-    // }
-    // printf("\n");
+    for(int i = 0; buffer[i] != 0; i++) {
+        printf("%c", buffer[i]);
+    }
+    printf("\n");
 
     // Inicializa o lexer
     fonte = buffer;
