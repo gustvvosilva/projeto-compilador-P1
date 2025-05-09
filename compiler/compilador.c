@@ -24,6 +24,7 @@ typedef struct {
 const char *fonte;
 int pos = 0;
 TOKEN token_atual;
+FILE *saida;
 
 void ignora_espaco() {
     while (fonte[pos] == ' ' || fonte[pos] == '\t' || fonte[pos] == '\n') {
@@ -164,6 +165,7 @@ void parse_programa() {
 
     // <start> ::= "INICIO"
     consumir_token(TOKEN_INICIO);
+    fprintf(saida, ".DATA\n");
     
     // <statement> – pode ser uma ou várias atribuições
     while (token_atual.tipo == TOKEN_VAR) {
@@ -174,6 +176,7 @@ void parse_programa() {
         consumir_token(TOKEN_VAR);
         consumir_token(TOKEN_DECLA);
         printf("; Processando atribuição para %s\n", variavel);
+        fprintf(saida, "%s DB ", variavel);
         // Para a geração de código, você pode chamar uma função que gera o código para a expressão
         parse_adicao();
         // Após calcular a expressão, emita código para armazenar o resultado na variável (ex.: STA varName)
@@ -182,34 +185,43 @@ void parse_programa() {
         // nextToken();   // se necessário
     }
     
+    fprintf(saida, "R DB ?\n");
+    fprintf(saida, ".CODE\n");
+    fprintf(saida, ".ORG 0\n");
+
     // <res_statement> ::= <ws> "RES" <ws> "=" <ws> <exp>
     consumir_token(TOKEN_RES);
     consumir_token(TOKEN_DECLA);
     printf("; Processando instrução RES\n");
     parse_adicao();
     // Aqui, a geração pode ser, por exemplo, armazenar o resultado em uma área especial
+    fprintf(saida, "STA R\n");
     printf("STA RES\n");  // ou a instrução apropriada
 
     // <end> ::= "FIM"
     consumir_token(TOKEN_FIM);
+    fprintf(saida, "HLT\n");
 }
 
 // <exp> ::= <term> ( <ws> <addop> <ws> <term> )*
 void parse_adicao() {
     // Começa interpretando o termo
+    fprintf(saida, "LDA ");
     parse_valor();
     // Enquanto o token for um operador de adição ou subtração
     while (token_atual.tipo == TOKEN_SOMA || token_atual.tipo == TOKEN_SUB) {
         token_tipos op = token_atual.tipo;
         consumir_token(op);
+        // Emite o código correspondente à operação:
+        if (op == TOKEN_SOMA) {
+            fprintf(saida, "ADD ");
+            printf("ADD\n");
+        } else {
+            printf("SUB\n");
+        }
         // Para geração de código, pode ser necessário empilhar o valor anterior, ou utilizar registradores.
         // Exemplo de comentário: // push acumulator (dependendo da estratégia)
         parse_valor();
-        // Emite o código correspondente à operação:
-        if (op == TOKEN_SOMA)
-            printf("ADD\n");
-        else
-            printf("SUB\n");
     }
 }
 
@@ -218,10 +230,12 @@ void parse_valor() {
     if (token_atual.tipo == TOKEN_NUM) {
         // Emite código para carregar o número
         printf("LDC %s\n", token_atual.valor);
+        fprintf(saida, "%s\n", token_atual.valor);
         consumir_token(TOKEN_NUM);
     } else if (token_atual.tipo == TOKEN_VAR) {
         // Emite código para carregar a variável
         printf("LDA %s\n", token_atual.valor);
+        fprintf(saida, "%s\n", token_atual.valor);
         consumir_token(TOKEN_VAR);
     } else {
         printf("Erro no factor: token inesperado.\n");
@@ -242,6 +256,9 @@ int main() {
     }
     printf("\n");
 
+    saida = fopen("programa.asm", "w");
+    if(saida == NULL) return -1;
+
     // Inicializa o lexer
     fonte = buffer;
     pos = 0;
@@ -250,5 +267,6 @@ int main() {
     // Inicia o parsing do programa
     parse_programa();
 
+    fclose(saida);
     return 0;
 }

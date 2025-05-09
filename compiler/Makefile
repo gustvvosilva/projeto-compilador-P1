@@ -6,3 +6,4 @@ run: all
 
 clean:
 	rm -f teste
+	rm -f programa.asm
