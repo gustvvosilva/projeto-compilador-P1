@@ -1,12 +1,21 @@
 all:
 	gcc ./neander/neander.c -o ./neander/executor
 	gcc ./assembler/assembler.c ./assembler/tokens.c -o ./assembler/assembler
+	gcc ./compiler/compilador.c -o ./compiler/compilador
+
+comp: all
+	./compiler/compilador ./programa.lpn
+
+asm: all
+	./assembler/assembler ./assembler/exemplo02.asm
+	./neander/executor ./assembler/programa.bin
 
 run: all
-	./assembler/assembler
+	./compiler/compilador ./compiler/programa.lpn
+	./assembler/assembler ./compiler/programa.asm
 	./neander/executor ./assembler/programa.bin
 
 clean:
 	rm -f ./neander/executor
-	rm -f ./assembler/assembler
-	rm -f ./assembler/programa.bin
+	rm -f ./assembler/assembler ./assembler/programa.bin
+	rm -f ./compiler/compilador ./compiler/programa.asm

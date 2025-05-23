@@ -72,7 +72,7 @@ __uint8_t obter_dado_cod(FILE *file) {
         }
         else
         {
-            printf(">L %c = %02x\n", variavel[0], variavel[0]);
+            // printf(">L %c = %02x\n", variavel[0], variavel[0]);
             // printf("kkkkkkk %d\n", strcmp(linha, "ADD"));
             break;
         }
@@ -99,7 +99,7 @@ __uint8_t obter_endereco_cod(FILE *file) {
         }
         else
         {
-            printf(">L %s\n", linha);
+            // printf(">L %s\n", linha);
             // printf("kkkkkkk %d\n", strcmp(linha, "ADD"));
 
             endereco = atoi(linha);
@@ -199,7 +199,7 @@ __uint8_t obter_dado_val(FILE *file2) {
         }
         else
         {
-            printf(">L %s\n", linha);
+            // printf(">L %s\n", linha);
             // printf("kkkkkkk %d\n", strcmp(linha, "ADD"));
 
             if(strcmp(linha, "DB") != 0) {

@@ -20,7 +20,7 @@ void obter_tokens(FILE *entrada, DATACODIGO *datacodigo, DATAVALOR *datavalor) {
         }
         else
         {
-            printf(">L %s\n", linha);
+            // printf(">L %s\n", linha);
 
             if(linha[0] == 0x3b)
             {
@@ -192,9 +192,9 @@ void imprimir_memoria() {
     return;
 }
 
-int main() {
+int main(int argc, char **argv) {
 
-    FILE *entrada = fopen("./assembler/entrada.asm", "r");
+    FILE *entrada = fopen(argv[argc - 1], "r");
     if(entrada == NULL) return -1;
 
     DATACODIGO *datacodigo = init_datacodigo();
