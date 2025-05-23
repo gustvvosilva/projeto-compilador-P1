@@ -1,7 +1,10 @@
+CC = gcc
+CFLAGS = -Wall -Wextra -std=c99
+
 all:
-	gcc ./neander/neander.c -o ./neander/executor
-	gcc ./assembler/assembler.c ./assembler/tokens.c -o ./assembler/assembler
-	gcc ./compiler/compilador.c -o ./compiler/compilador
+	$(CC) $(CFLAGS) ./neander/neander.c -o ./neander/executor
+	$(CC) $(CFLAGS) ./assembler/assembler.c ./assembler/tokens.c -o ./assembler/assembler
+	$(CC) $(CFLAGS) ./compiler/compilador.c -o ./compiler/compilador
 
 asm: all
 	./assembler/assembler ./exemplo02.asm
