@@ -3,15 +3,12 @@ all:
 	gcc ./assembler/assembler.c ./assembler/tokens.c -o ./assembler/assembler
 	gcc ./compiler/compilador.c -o ./compiler/compilador
 
-comp: all
-	./compiler/compilador ./programa.lpn
-
 asm: all
-	./assembler/assembler ./assembler/exemplo02.asm
+	./assembler/assembler ./exemplo02.asm
 	./neander/executor ./assembler/programa.bin
 
 run: all
-	./compiler/compilador ./compiler/programa.lpn
+	./compiler/compilador ./programa.lpn
 	./assembler/assembler ./compiler/programa.asm
 	./neander/executor ./assembler/programa.bin
 

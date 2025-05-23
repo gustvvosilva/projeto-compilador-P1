@@ -1,6 +1,7 @@
 PROGRAMA "teste":
 INICIO
 A = 5
-B = 3
-RES = A + B
+B = 7
+C = 10
+RES = A + B + C
 FIM

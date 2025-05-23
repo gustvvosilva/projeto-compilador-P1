@@ -117,6 +117,7 @@ int main(int argc, char **argv){
         printf("%02x ", bytes[i]);
     }
     printf("\n=======================================================\n");
-    printf("Finalizou com sucesso!\n\n");
+    printf("Finalizou com sucesso!\n");
+    printf("ACUMULADOR FINAL (em decimal): %d\n\n", ac);
     return 0;
 }
