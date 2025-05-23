@@ -8,7 +8,6 @@
 #include <assert.h>
 #include <stdbool.h>
 
-// Tipos de tokens
 typedef enum {
     TOKEN_PROGRAMA,
     TOKEN_INICIO,
@@ -25,22 +24,18 @@ typedef enum {
     TOKEN_DESCONHECIDO
 } token_tipos;
 
-// Estrutura de um token
 typedef struct {
     token_tipos tipo;
     char valor[16];
 } TOKEN;
 
-// Protótipos do lexer
 void proximo_token();
 void consumir_token(token_tipos tipo_esperado);
 
-// Protótipos do parser
 void parse_programa();
 void parse_adicao();
 void parse_valor();
 
-// Protótipos de avaliação de expressões em tempo de compilação
 int eval_valor();
 int eval_exp();
 
